@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>To Do</title>
+</head>
+<body>
+    <div class="main-wrapper">'
+        <form method="POST" id="todo">
+            {% csrf_token %}
+            <input type="text" placeholder="Add a task" name="title">
+            <input class="checked-img" type="image" src="{% static 'images/checked.svg' %}">
+        </form>
+        <div class="list">
+            {% for task in tasks %}
+            <div class="task">
+                {% if task.completed == True %}
+                    <p><s>{{ task }}</s><p></p>
+                {% else %}
+                    <p>{{ task }}</p>
+                {% endif %}
+                <div class="forms">
+                    <form method="POST" class="test" action="{% url 'completed' task.id %}">
+                        {% csrf_token %}
+                        <input 
+                            class="button tick" 
+                            type="image" 
+                            src="{% static 'images/check.svg' %}" 
+                            alt="tick" 
+                            name="completed"
+                        >
+                    </form>
+                    <form method="POST" class="test" action="{% url 'delete' task.id %}">
+                        {% csrf_token %}
+                        <input 
+                            class="button cross" 
+                            type="image" 
+                            src="{% static 'images/remove.svg' %}" 
+                            alt="cross" 
+                            name="delete"
+                        >
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
