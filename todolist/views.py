@@ -1,6 +1,6 @@
 from todolist.models import TaskList
 from django.shortcuts import redirect, render
-from .forms import TaskForm
+from todolist.forms import TaskForm
 
 
 def index(request):

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import delete, index, completed
+from todolist.views import delete, index, completed
 
 urlpatterns = [
     path('', index, name='index'),
